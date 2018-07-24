@@ -37,7 +37,7 @@ class GazeboRosUwb : public ModelPlugin {
   physics::LinkPtr link;
 
   ros::NodeHandle* node_handle_;
-  ros::Publisher uwb_publisher_;
+  ros::Publisher uwb_publisher_,gt_publisher_;
 
   boost::shared_ptr<dynamic_reconfigure::Server<UWBConfig>> dynamic_reconfigure_server_;
 
@@ -49,9 +49,9 @@ class GazeboRosUwb : public ModelPlugin {
   event::ConnectionPtr updateConnection;
   UpdateTimer updateTimer;
 
-  double uwb_noise_x_ = 0.03;
-  double uwb_noise_y_ = 0.03;
+  double uwb_noise_pos_ = 0.03;
   geometry_msgs::PoseStamped uwb_pose_msg_;
+  geometry_msgs::PoseStamped gt_msg_;
 
   template <typename T>
   static inline T SensorModelGaussianKernel(T mu, T sigma)

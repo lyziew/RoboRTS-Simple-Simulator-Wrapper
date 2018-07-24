@@ -10,19 +10,29 @@
   <link
     name="base_link">
     <inertial>
-      <origin
-        xyz="-0.025782 0 0.025311"
-        rpy="0 0 0" />
-      <mass
-        value="25.625" />
-      <inertia
-        ixx="0.10311"
-        ixy="-9.0391E-05"
-        ixz="0.0071078"
-        iyy="0.24575"
-        iyz="2.1083E-05"
-        izz="0.32438" />
+    <origin
+    xyz="0 0 0"
+    rpy="0 0 0" />
+    <mass
+    value="25.625" />
+    <inertia
+    ixx="0.10311"
+    ixy="-9.0391E-05"
+    ixz="0.0071078"
+    iyy="0.24575"
+    iyz="2.1083E-05"
+    izz="0.32438" />
     </inertial>
+    <collision>
+    <origin
+    xyz="0 0 0"
+    rpy="0 0 0" />
+    <geometry>
+    <box
+    size= "0.55 0.4 0.1"
+    />
+    </geometry>
+    </collision>
     <visual>
       <origin
         xyz="0 0 0"
@@ -37,17 +47,48 @@
           rgba="0 0 0 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <box
-          size= "0.55 0.4 0.1"
-        />
-      </geometry>
-    </collision>
   </link>
+
+  <!--<link-->
+          <!--name="base_footprint">-->
+    <!--<inertial>-->
+      <!--<origin-->
+              <!--xyz="-0.025782 0 0.025311"-->
+              <!--rpy="0 0 0" />-->
+      <!--<mass-->
+              <!--value="25.625" />-->
+      <!--<inertia-->
+              <!--ixx="0.10311"-->
+              <!--ixy="-9.0391E-05"-->
+              <!--ixz="0.0071078"-->
+              <!--iyy="0.24575"-->
+              <!--iyz="2.1083E-05"-->
+              <!--izz="0.32438" />-->
+    <!--</inertial>-->
+    <!--<collision>-->
+      <!--<origin-->
+              <!--xyz="0 0 0"-->
+              <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<box-->
+                <!--size= "0.55 0.4 0.1"-->
+        <!--/>-->
+      <!--</geometry>-->
+    <!--</collision>-->
+  <!--</link>-->
+
+  <!--<joint-->
+          <!--name="base_link_to_base_foot_print"-->
+          <!--type="fixed">-->
+    <!--<origin-->
+            <!--xyz="0 0 0"-->
+            <!--rpy="0 0 0" />-->
+    <!--<parent-->
+            <!--link="base_link" />-->
+    <!--<child-->
+            <!--link="base_footprint" />-->
+  <!--</joint>-->
+
 
   <link
     name="br_wheel_link">
@@ -88,6 +129,14 @@
           radius = "${wheel_radius}"
           length = "${wheel_width}" />
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.0</mu>
+            <mu2>0.0</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <joint
@@ -143,6 +192,14 @@
           radius = "${wheel_radius}"
           length = "${wheel_width}" />
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.0</mu>
+            <mu2>0.0</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <joint
@@ -197,6 +254,14 @@
           radius = "${wheel_radius}"
           length = "${wheel_width}" />  
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.0</mu>
+            <mu2>0.0</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <joint
@@ -250,7 +315,15 @@
         <cylinder
           radius = "${wheel_radius}"
           length = "${wheel_width}" /> 
-      </geometry> 
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.0</mu>
+            <mu2>0.0</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <joint
@@ -309,7 +382,7 @@
   </link>
   <joint
     name="base_link_to_yaw_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="-0.017561 0 0.1342"
       rpy="0 0 0" />
@@ -319,11 +392,11 @@
       link="yaw_link" />
     <axis
       xyz="0 0 1" />
-    <limit
-      lower="-1.57"
-      upper="1.57"
-      effort="1000"
-      velocity="100" />
+    <!--<limit-->
+      <!--lower="-1.57"-->
+      <!--upper="1.57"-->
+      <!--effort="1000"-->
+      <!--velocity="100" />-->
   </joint>
   <link
     name="pitch_link">
@@ -378,8 +451,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-0.35"
-      upper="0.35"
+      lower="-0.001"
+      upper="0.001"
       effort="1000"
       velocity="100" />
   </joint>

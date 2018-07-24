@@ -45,6 +45,7 @@
   <gazebo reference="base_link">
     <material>Gazebo/Black</material>
     <turnGravityOff>false</turnGravityOff>
+    <!--<kinematic>1</kinematic>-->
   </gazebo>
 
 
@@ -59,15 +60,15 @@
   </gazebo>
   <!-- hokuyo -->
   <gazebo reference="base_laser_link">
-    <sensor type="gpu_ray" name="head_hokuyo_sensor">
+    <sensor type="ray" name="head_hokuyo_sensor">
       <pose>0 0 0.2 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>15</update_rate>
       <ray>
         <scan>
           <horizontal>
-            <samples>360</samples>
-            <resolution>1</resolution>
+            <samples>720</samples>
+            <resolution>0.5</resolution>
             <min_angle>-3.14159</min_angle>
             <max_angle>3.14159</max_angle>
           </horizontal>
@@ -84,10 +85,10 @@
                stddev of 0.01m will put 99.7% of samples within 0.03m of the true
                reading. -->
           <mean>0.0</mean>
-          <stddev>0.01</stddev>
+          <stddev>0.015</stddev>
         </noise>
       </ray>
-      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
         <topicName>scan</topicName>
         <frameName>base_laser_link</frameName>
       </plugin>
@@ -96,23 +97,39 @@
 
   <!-- position controller plugin-->
   <gazebo>
-    <plugin name="mecanum_base_controller" filename="libgazebo_ros_planar_move.so">
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <odometryRate>15</odometryRate>
-      <robotBaseFrame>base_link</robotBaseFrame>
-      <broadcastTF>true</broadcastTF>
+    <plugin name="mecanum_base_controller" filename="libroborts_gazebo_ros_force_based_omni_move.so">
+      <cmd_vel_topic>/cmd_vel</cmd_vel_topic>
+      <odom_topic>odom</odom_topic>
+      <odom_frame>odom</odom_frame>
+      <odom_rate>20.0</odom_rate>
+      <robot_base_frame>base_link</robot_base_frame>
+      <publish_odom_tf>1</publish_odom_tf>
+      <rotation_velocity_p_gain>800.0</rotation_velocity_p_gain>
    </plugin>
  </gazebo>
+
+  <!--<gazebo>-->
+  <!--<plugin name="mecanum_base_controller" filename="libroborts_gazebo_ros_force_based_move.so">-->
+  <!--<commandTopic>/cmd_vel</commandTopic>-->
+  <!--<odometryTopic>odom</odometryTopic>-->
+  <!--<odometryFrame>odom</odometryFrame>-->
+  <!--<odometryRate>20.0</odometryRate>-->
+  <!--<robotBaseFrame>base_link</robotBaseFrame>-->
+  <!--<yaw_velocity_p_gain>500</yaw_velocity_p_gain>-->
+  <!--<x_velocity_p_gain>3000</x_velocity_p_gain>-->
+  <!--<y_velocity_p_gain>3000</y_velocity_p_gain>-->
+  <!--<publishOdometryTf>1</publishOdometryTf>-->
+  <!--</plugin>-->
+  <!--</gazebo>-->
+
 
   <gazebo>
     <plugin name="uwb_plugin" filename="libroborts_gazebo_ros_uwb.so">
       <topic_name>uwb</topic_name>
       <frame_id>uwb</frame_id>
-      <body_name>uwb_tag_link</body_name>
-      <gaussian_noise>0.09</gaussian_noise>
-      <!--<update_rate_hz>50.0</update_rate_hz>-->
+      <body_name>base_link</body_name>
+      <gaussian_noise>0.04</gaussian_noise>
+      <update_rate_hz>15.0</update_rate_hz>
     </plugin>
   </gazebo>
 
@@ -138,11 +155,11 @@
   </gazebo>
 
 <!-- ros_control plugin -->
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotParam>robot_description</robotParam>
+  <!--<gazebo>-->
+    <!--<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">-->
+      <!--<robotParam>robot_description</robotParam>-->
      <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>-->
-    </plugin>
-  </gazebo>
+    <!--</plugin>-->
+  <!--</gazebo>-->
 
 </robot>

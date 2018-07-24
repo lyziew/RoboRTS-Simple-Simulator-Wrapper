@@ -4,6 +4,6 @@
 
         <xacro:include filename="$(find roborts_gazebo)/robots/infantry.urdf.xacro" />
         <xacro:include filename="$(find roborts_gazebo)/robots/infantry.gazebo.xacro" />
-        <xacro:include filename="$(find roborts_gazebo)/robots/infantry.transmission.xacro" />
+        <!--<xacro:include filename="$(find roborts_gazebo)/robots/infantry.transmission.xacro" />-->
 
 </robot>
