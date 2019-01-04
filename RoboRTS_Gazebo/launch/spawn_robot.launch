@@ -7,26 +7,23 @@
   <arg name="pos_z" default="0.0"/>
   <arg name="pos_R" default="0.0"/>
   <arg name="namespace_arg" default=""/>
-
+  <arg name="robot_model" default="$(find roborts_gazebo)/robots/infantry.xacro" />
   <!-- start robot state publisher -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
- <!--ros controller_manager spawn controller_manager-->
-   <!--Load joint controller configurations from YAML file to parameter server-->
-  <!--<rosparam file="$(find roborts_gazebo)/config/infantry_control.yaml" command="load" />-->
+  <!--ros controller_manager spawn controller_manager-->
+  <!--Load joint controller configurations from YAML file to parameter server-->
+  <rosparam file="$(find roborts_gazebo)/config/infantry_control.yaml" command="load" />
 
-   <!--load the controllers-->
-  <!--<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"-->
-	<!--output="screen"-->
-	<!--args="joint_state_controller-->
-	      <!--yaw_position_controller-->
-	      <!--pitch_position_controller"/>-->
+  <!--load the controllers-->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller
+	      yaw_position_controller
+	      pitch_position_controller"/>
 
- <!--gazebo_ros spawn_robot-->
-  <arg name="robot_model" default="$(find roborts_gazebo)/robots/infantry.xacro" />
+  <!--gazebo_ros spawn_robot-->
+ 
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg robot_model)" />
-  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
-    args="-param robot_description
+  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" args="-param robot_description
      -urdf
      -x $(arg pos_x)
      -y $(arg pos_y)
@@ -34,9 +31,7 @@
      -R 0
      -P 0
      -Y $(arg pos_R)
-     -model $(arg name)"
-    respawn="false"
-    output="screen">
+     -model $(arg name)" respawn="false" output="screen">
   </node>
 
 </launch>
