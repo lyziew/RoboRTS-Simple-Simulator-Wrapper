@@ -93,7 +93,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>scan</topicName>
+        <topicName>base_scan</topicName>
         <frameName>base_laser_link</frameName>
       </plugin>
     </sensor>
@@ -143,7 +143,7 @@
   <!-- position controller plugin-->
   <gazebo>
     <plugin name="mecanum_base_controller" filename="libroborts_gazebo_ros_force_based_omni_move.so">
-      <cmd_vel_topic>/cmd_vel</cmd_vel_topic>
+      <cmd_vel_topic>cmd_vel</cmd_vel_topic>
       <odom_topic>odom</odom_topic>
       <odom_frame>odom</odom_frame>
       <odom_rate>20.0</odom_rate>

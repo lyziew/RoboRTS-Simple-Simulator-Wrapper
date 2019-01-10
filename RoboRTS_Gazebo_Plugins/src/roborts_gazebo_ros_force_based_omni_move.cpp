@@ -23,10 +23,10 @@ void GazeboRosForceBasedOmniMove::Load(physics::ModelPtr model, sdf::ElementPtr 
   link_ = parent_->GetLink(robot_base_frame_);
 
   robot_namespace_ = "";
-  if(!sdf->HasElement("robot_namespace")){
-    ROS_WARN("%s: missing element <robot_namespace>, default to [%s]", class_name.c_str(),robot_namespace_.c_str());
+  if(!sdf->HasElement("robotNamespace")){
+    ROS_WARN("%s: missing element <robotNamespace>, default to [%s]", class_name.c_str(),robot_namespace_.c_str());
   } else{
-    robot_namespace_ = sdf->GetElement("robot_namespace")->Get<std::string>();
+    robot_namespace_ = sdf->GetElement("robotNamespace")->Get<std::string>();
   }
 
   cmd_vel_topic_ = "cmd_vel";
